@@ -1,0 +1,100 @@
+﻿@model IEnumerable<MTHeadBrewery.Models.Beer>
+@{
+    ViewBag.Title = "Our Brews";
+    WebImage photo = null;
+    var newFileName = "";
+    var imagePath = "";
+
+    if (IsPost)
+    {
+        photo = WebImage.GetImageFromRequest();
+        if (photo != null)
+        {
+            newFileName = Guid.NewGuid().ToString() + "_" +
+                Path.GetFileName(photo.FileName);
+            imagePath = @"images\" + newFileName;
+
+            photo.Save(@"~\" + imagePath);
+        }
+    }
+}
+<h2>Our Brews</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BeerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ABV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeerDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstBrewed)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ABV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeerDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstBrewed)
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.Identity.Name == "admin@gmail.com")
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                    }
+                }
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.Identity.Name == "admin@gmail.com")
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    }
+                }
+            </td>
+        </tr>
+
+    }
+</table>
+<form action="" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <legend> Upload Image </legend>
+        <label for="Image">Image</label>
+        <input type="file" name="Image" />
+        <br />
+        <input type="submit" value="Upload" />
+    </fieldset>
+</form>
+<h1>Uploaded Image</h1>
+@if (imagePath != "")
+{
+    <div class="result">
+        <img src="@imagePath" alt="image" />
+
+    </div>
+}
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.Identity.Name == "superadmin@gmail.com")
+    {
+        <img src="images/photo1.jpg" alt="Mountain View">
+    }
+} 
