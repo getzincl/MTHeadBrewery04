@@ -21,7 +21,7 @@ Password:  Admin1!
    -Everything should be fully functional except maybe the image upload which Is currently in progress for the final iteration
                          The views also contain some role based security which will be evident if you click on details and then attempt the "edit"
                          button as a normal viewer and not an admin or superadmin.  
-   #Controllers  
+  # Controllers  
    -All controllers should be fully functional with Role based security
  #  Navigation 
  -Should have smooth navigation with all working links.  There are also linkes to off the page which should be fully 
@@ -37,7 +37,7 @@ Password:  Admin1!
                           by an adminitrator which is currently in progress.  The project also uses username and role based security for full CRUD operations.
                                 
 #   Misc.    
--The photo upload is presenting a lot of miscellaneous work.  Hopefully it will work.  
+-The photo upload is presenting a lot of miscellaneous work.  Hopefully it will work. 
 
-#Presentation   
+# Presentation   
    -Coming soon to a theater near you!
